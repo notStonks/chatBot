@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 terminal_key = '1678034071786DEMO'
 password = 'ia6ntj8iywkfv1u4'
 
-notification_url = "http://06dd-5-16-115-81.ngrok-free.app/hook/"
+notification_url = "https://chatbot-w31c.onrender.com/hook/"
 
 
 def get_payment_info(order_id: str, amount: int):
@@ -37,9 +37,7 @@ def get_payment_info(order_id: str, amount: int):
 def get_buy_keyboard(url: str):
     pay = InlineKeyboardMarkup(row_width=1)
     btnpay = InlineKeyboardButton(text="Оплатить", url=url)
-    btnBack = InlineKeyboardButton(text="Назад", callback_data="Back")
     pay.insert(btnpay)
-    pay.insert(btnBack)
 
     return pay
 
