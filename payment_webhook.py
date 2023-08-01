@@ -1,6 +1,6 @@
 import logging
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import Response
 
 from utils import get_buy_keyboard, get_payment_info
 
@@ -26,10 +26,10 @@ async def recWebHook(request: Request):
             await _confirmed_payment(body["OrderId"], body["Amount"])
         if status == "REJECTED":
             await _rejected_payment(body["OrderId"], body["Amount"])
-        return JSONResponse(status_code=200, content="OK")
+        return Response(status_code=200, content="OK")
     except Exception as _exec:
         logger.error(f"{_exec}")
-        return JSONResponse({"Error": "Some error occured."})
+        return Response({"Error": "Some error occured."})
 
 
 async def _confirmed_payment(order_id: str, amount: int):
@@ -44,7 +44,7 @@ async def _confirmed_payment(order_id: str, amount: int):
         # await bot.send_message(user_id, text=f"Успешно куплено")
     except Exception as _exec:
         logger.error(f"{_exec}")
-        return JSONResponse({"Error": "Some error occured."})
+        return Response({"Error": "Some error occured."})
 
 
 async def _rejected_payment(order_id: str, amount: int):
@@ -73,14 +73,14 @@ async def process_pay(user_id, amount):
     # amounts_dict = {990: 500, 1790: 1000, 2690: 1500, 3590: 2000, 5390: 3000, 7190: 4000, 8990: 5000}
     amounts_dict = {500: 990, 1000: 1790, 1500: 2690, 2000: 3590, 3000: 5390, 4000: 7190, 5000: 8990}
     if amount == amounts_dict[500]:
-        # literal = db.countA()
-        # code = db.get_codA(literal)
-        code = "12314124123131"
-#        await bot.send_sticker(message.from_user.id, sticker="CAACAgIAAxkBAAEHrkdj53YlraqITVLxHrp87twO3l9EdgACbikAAkizOEvykQRAr7eVay4E")
-#         await bot.send_message(admin_ID,f"<b>---Куплен номер {A}, номинал 500 рублей---</b>",parse_mode="html")
-#         if literal == 50:
-#             literal = 0
-#         db.up_nA(literal+1)
+        literal = db.countA()
+        code = db.get_codA(literal)
+        # code = "12314124123131"
+#       await bot.send_sticker(message.from_user.id, sticker="CAACAgIAAxkBAAEHrkdj53YlraqITVLxHrp87twO3l9EdgACbikAAkizOEvykQRAr7eVay4E")
+#       await bot.send_message(admin_ID,f"<b>---Куплен номер {A}, номинал 500 рублей---</b>",parse_mode="html")
+        if literal == 50:
+            literal = 0
+        db.up_nA(literal+1)
 
     elif amount == amounts_dict[1000]:
         literal = db.countB()
@@ -131,4 +131,4 @@ async def process_pay(user_id, amount):
         db.up_nG(literal + 1)
 
     await bot.send_message(user_id, f"Спасибо за покупку!\nВаш код: <code>{code}</code>\nЕсли возникли проблемы с гифт кодом - обратитесь в службу поддержки.",reply_markup = nav.mainMenu,parse_mode="html")
-    # await bot.send_message(admin_ID, f"<b>---Куплен номер {literal}, номинал {amount} рублей---</b>", parse_mode="html")
+    await bot.send_message(admin_ID, f"<b>---Куплен номер {literal}, номинал {amount} рублей---</b>", parse_mode="html")

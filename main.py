@@ -18,8 +18,8 @@ from utils import get_payment_info, get_buy_keyboard
 db = Database("database.db")
 
 # --- Конфиг ---
-# TOKEN = "5807268799:AAFgOQEJEnqspKvo0AJbPHvVXQi44qrHT50"
-TOKEN = "6173169313:AAFaduSszLzSwrFbJe3wyhGzFr4pl_sye84"
+TOKEN = "5807268799:AAFgOQEJEnqspKvo0AJbPHvVXQi44qrHT50"
+
 
 ROBOKASSATEST = "1920051371:TEST:638150151980623935"
 YOOTOKEN = "390540012:LIVE:33158"

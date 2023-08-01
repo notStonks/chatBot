@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 terminal_key = '1678034071786DEMO'
 password = 'ia6ntj8iywkfv1u4'
 
-notification_url = "https://chatbot-w31c.onrender.com/hook/"
+notification_url = "https://0ff0-5-16-123-243.ngrok-free.app/hook/"
 
 
 def get_payment_info(order_id: str, amount: int):
