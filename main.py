@@ -1,14 +1,13 @@
-import logging
 import uuid
+import os
+from dotenv import load_dotenv
 
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types.message import ContentType
-from aiogram.types import InputFile, Message
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher.filters import Text
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-import payment
 
 import markups as nav
 from db import Database
@@ -17,17 +16,17 @@ from utils import get_payment_info, get_buy_keyboard
 
 db = Database("database.db")
 
-# --- Конфиг ---
-TOKEN = "5807268799:AAFgOQEJEnqspKvo0AJbPHvVXQi44qrHT50"
 
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+if os.path.exists(dotenv_path):
+    load_dotenv(dotenv_path)
 
-ROBOKASSATEST = "1920051371:TEST:638150151980623935"
-YOOTOKEN = "390540012:LIVE:33158"
-SBERBANK = "401643678:TEST:d97574e6-085c-4013-b784-ad589793eff3"
+TOKEN = os.getenv("TOKEN")
+ROBOKASSATEST = os.getenv("ROBOKASSATEST")
+YOOTOKEN = os.getenv("YOOTOKEN")
+SBERBANK = os.getenv("SBERBANK")
+admin_ID = os.getenv("admin_ID")
 
-admin_ID = 703278582
-
-logging.basicConfig(level=logging.INFO)
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot, storage=MemoryStorage())

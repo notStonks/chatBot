@@ -2,3 +2,5 @@ __init__.py
 database.db-journal
 instruction2.txt
 instruction.txt
+/.env
+database.db

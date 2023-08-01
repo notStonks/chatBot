@@ -41,7 +41,6 @@ async def _confirmed_payment(order_id: str, amount: int):
         user_id = db.get_user_from_order_idA(order_id)
         amount = amount // 100
         await process_pay(user_id, amount)
-        # await bot.send_message(user_id, text=f"Успешно куплено")
     except Exception as _exec:
         logger.error(f"{_exec}")
         return Response({"Error": "Some error occured."})
@@ -69,15 +68,15 @@ async def _rejected_payment(order_id: str, amount: int):
         # return JsonResponse({"Error": "Some error occured."})
 
 
+
 async def process_pay(user_id, amount):
-    # amounts_dict = {990: 500, 1790: 1000, 2690: 1500, 3590: 2000, 5390: 3000, 7190: 4000, 8990: 5000}
+    """
+    Этот метод выглядит так, потому что изначально бот написан не в самом лучшем стиле((
+    """
     amounts_dict = {500: 990, 1000: 1790, 1500: 2690, 2000: 3590, 3000: 5390, 4000: 7190, 5000: 8990}
     if amount == amounts_dict[500]:
         literal = db.countA()
         code = db.get_codA(literal)
-        # code = "12314124123131"
-#       await bot.send_sticker(message.from_user.id, sticker="CAACAgIAAxkBAAEHrkdj53YlraqITVLxHrp87twO3l9EdgACbikAAkizOEvykQRAr7eVay4E")
-#       await bot.send_message(admin_ID,f"<b>---Куплен номер {A}, номинал 500 рублей---</b>",parse_mode="html")
         if literal == 50:
             literal = 0
         db.up_nA(literal+1)

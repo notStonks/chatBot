@@ -1,17 +1,21 @@
 import logging
-
+import os
+from dotenv import load_dotenv
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
 from payment import TinkoffPayment
 
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-terminal_key = '1678034071786DEMO'
-password = 'ia6ntj8iywkfv1u4'
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+if os.path.exists(dotenv_path):
+    load_dotenv(dotenv_path)
 
-notification_url = "https://0ff0-5-16-123-243.ngrok-free.app/hook/"
+terminal_key = os.getenv('terminal_key')
+password = os.getenv('password')
+
+notification_url = os.getenv('notification_url')
 
 
 def get_payment_info(order_id: str, amount: int):
